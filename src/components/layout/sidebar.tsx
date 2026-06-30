@@ -1,5 +1,6 @@
 "use client";
-
+import { useTheme } from "@/hooks/use-theme";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
@@ -36,9 +37,9 @@ const ROLE_CHIP: Record<
   owner: {
     icon: Crown,
     label: "Owner",
-    // Amber: scarce, immutable, "the boss" — gets visual emphasis.
+    // Cinza neutro, conforme pedido — sem destaque de cor.
     className:
-      "border-amber-500/40 bg-amber-500/10 text-amber-300",
+      "border-border bg-muted text-muted-foreground",
   },
   admin: {
     icon: Shield,
@@ -110,6 +111,7 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { profile, profileLoading, account, accountRole, signOut } = useAuth();
   const totalUnread = useTotalUnread();
+  const { mode } = useTheme();
   // Only surface the account-name strip when it actually carries
   // information. A solo user's personal account is named after them
   // (the 017 signup trigger seeds it from `full_name`), so showing it
@@ -177,14 +179,16 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
       >
         {/* Logo row. On mobile we put a close button here; on desktop the
             close button is hidden since the sidebar is always-visible. */}
-        <div className="flex h-14 shrink-0 items-center justify-between gap-2 border-b border-border px-4">
-          <Link href="/dashboard" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <MessageSquare className="h-4 w-4" />
-            </div>
-            <span className="text-sm font-semibold text-foreground">
-              CRM Template for WhatsApp
-            </span>
+        <div className="flex h-16 shrink-0 items-center justify-between gap-2 border-b border-border px-4">
+          <Link href="/dashboard" className="flex flex-1 items-center justify-center">
+            <Image
+              src={mode === "dark" ? "/max-logo-white.png" : "/max-logo-dark.png"}
+              alt="Max no Zap"
+              width={150}
+              height={80}
+              priority
+              className="h-16 w-auto"
+            />
           </Link>
           <button
             type="button"
@@ -224,7 +228,7 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
                     {item.beta && (
                       <span
                         aria-label="Beta feature"
-                        className="rounded-full border border-amber-500/40 bg-amber-500/10 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-amber-300"
+                        className="rounded-full border border-border bg-muted px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground"
                       >
                         Beta
                       </span>

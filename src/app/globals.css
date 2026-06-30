@@ -203,18 +203,17 @@ html[data-theme="amber"] {
   --sidebar-ring: oklch(0.745 0.16 65);
 }
 
-html[data-theme="rose"] {
-  --primary: oklch(0.645 0.22 16);
+html[data-theme="maxnozap"] {
+  --primary: oklch(0.464 0.268 265.0);
   --primary-foreground: oklch(0.985 0 0);
-  --primary-hover: oklch(0.71 0.2 16);
-  --primary-soft: oklch(0.645 0.22 16 / 0.12);
-  --primary-soft-2: oklch(0.645 0.22 16 / 0.22);
-  --ring: oklch(0.645 0.22 16);
-  --chart-1: oklch(0.645 0.22 16);
-  --chart-2: oklch(0.7 0.18 340);
-  --sidebar-primary: oklch(0.645 0.22 16);
+  --primary-hover: oklch(0.53 0.268 265.0);
+  --primary-soft: oklch(0.464 0.268 265.0 / 0.12);
+  --primary-soft-2: oklch(0.464 0.268 265.0 / 0.22);
+  --ring: oklch(0.464 0.268 265.0);
+  --chart-1: oklch(0.464 0.268 265.0);
+  --sidebar-primary: oklch(0.464 0.268 265.0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-ring: oklch(0.645 0.22 16);
+  --sidebar-ring: oklch(0.464 0.268 265.0);
 }
 
 @layer base {

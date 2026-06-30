@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/hooks/use-theme";
@@ -13,23 +13,20 @@ import {
   THEME_IDS,
 } from "@/lib/themes";
 
-const inter = Inter({
+const inter = Space_Grotesk({
   variable: "--font-sans",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "wacrm",
-    template: "%s — wacrm",
+    default: "MaxnoZap®",
+    template: "%s — MaxnoZap®",
   },
-  description: "Self-hostable CRM template for WhatsApp.",
+  description: "CRM para WhatsApp do MaxnoZap®.",
   robots: {
     index: false,
     follow: false,
-  },
-  icons: {
-    icon: [{ url: "/icon" }],
   },
   formatDetection: {
     email: false,

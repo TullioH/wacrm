@@ -1,9 +1,12 @@
 "use client";
 
 import { Suspense, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import { useTheme } from "@/hooks/use-theme";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,13 +17,22 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { MessageSquare, UsersRound } from "lucide-react";
+import { UsersRound } from "lucide-react";
 
 // `useSearchParams` opts the component out of static prerendering
 // unless it sits under a Suspense boundary. We split the form into
 // a child component so the outer page can prerender the chrome
 // (background, card frame) while the form hydrates with the query
 // string on the client.
+const noopSubscribe = () => () => {};
+function useIsClient() {
+  return useSyncExternalStore(
+    noopSubscribe,
+    () => true,
+    () => false,
+  );
+}
+
 export default function LoginPage() {
   return (
     <Suspense fallback={null}>
@@ -36,6 +48,8 @@ function LoginPageInner() {
   // page to accept rather than to /dashboard.
   const inviteToken = searchParams.get("invite");
 
+  const { mode } = useTheme();
+  const isClient = useIsClient();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -67,16 +81,25 @@ function LoginPageInner() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <Card className="w-full max-w-md border-border bg-card">
-        <CardHeader className="items-center text-center">
-          <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-            {inviteToken ? (
-              <UsersRound className="h-6 w-6 text-primary" />
-            ) : (
-              <MessageSquare className="h-6 w-6 text-primary" />
-            )}
-          </div>
+    <div
+      className="relative flex min-h-screen items-center justify-center px-4 bg-cover bg-center"
+      style={{ backgroundImage: "url('/login-bg.png')" }}
+    >
+      <Card className="relative z-10 w-full max-w-md border-border bg-card shadow-2xl">
+        <CardHeader className="justify-items-center text-center">
+          <Image
+            src={isClient && mode === "light" ? "/max-logo-dark.png" : "/max-logo-white.png"}
+            alt="Max no Zap"
+            width={150}
+            height={80}
+            priority
+            className="mb-2 h-20 w-auto"
+          />
+          {inviteToken && (
+            <div className="mb-1 flex h-8 w-8 items-center justify-center rounded-full bg-primary/10">
+              <UsersRound className="h-4 w-4 text-primary" />
+            </div>
+          )}
           <CardTitle className="text-xl text-foreground">
             {inviteToken ? "Sign in to accept" : "Welcome back"}
           </CardTitle>

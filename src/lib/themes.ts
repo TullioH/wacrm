@@ -14,16 +14,16 @@
  */
 
 export const THEME_IDS = [
+  "maxnozap",
   "violet",
   "emerald",
   "cobalt",
   "amber",
-  "rose",
 ] as const;
 
 export type ThemeId = (typeof THEME_IDS)[number];
 
-export const DEFAULT_THEME: ThemeId = "violet";
+export const DEFAULT_THEME: ThemeId = "maxnozap";
 
 export const STORAGE_KEY = "wacrm.theme";
 
@@ -92,11 +92,11 @@ export const THEMES: ReadonlyArray<ThemeMeta> = [
     swatch: "oklch(0.745 0.16 65)",
   },
   {
-    id: "rose",
-    name: "Rose",
-    tagline: "Bold and modern — D2C, creator-economy, lifestyle.",
-    swatch: "oklch(0.645 0.22 16)",
-  },
+  id: "maxnozap",
+  name: "MaxnoZap",
+  tagline: "A cor oficial da marca.",
+  swatch: "oklch(0.464 0.268 265.0)",
+},
 ];
 
 export function isThemeId(value: unknown): value is ThemeId {
